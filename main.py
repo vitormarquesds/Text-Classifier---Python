@@ -89,3 +89,17 @@ def preprocessing():
     
     return pipeline
 
+## Model Selection
+
+N_NEIGHBORS = 4
+CV = 3
+
+def models_creation():
+    
+    model1 = KNeighborsClassifier(n_neighbors=N_NEIGHBORS)
+    model2 = RandomForestClassifier(random_state=Random_State)
+    model3 = LogisticRegression(cv = CV, random_state=Random_State)
+    
+    models = [("KNN", model1), ("Random Forest", model2), ("Logistic Regression", model3)]
+    
+    return models
