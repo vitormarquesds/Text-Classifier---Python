@@ -59,9 +59,9 @@ Test_size = 0.2
 Random_State = 41
 
 def split_data():
-    
+
     print(f"Split Data {100 * {}}%  for training and validation".format(Test_size))
-    
+
     X_train,X_test, y_train, y_test = train_test_split(data,
                                                        labels,
                                                        test_size= Test_size,
@@ -80,13 +80,13 @@ N_INTER = 30
 def preprocessing():
     pattern = r'\W|\d|http.*\s+|www.*\s+'
     preprocessor = lambda text: re.sub(pattern, ' ', text)
-    
+
     vectorizer = TfidfVectorizer(preprocessor = preprocessor, stop_words='english',  min_df=Min_Roc_Freq)
-    
+
     decomposition = TruncatedSVD(n_components=N_Components, n_iter=N_INTER)
-    
+
     pipeline = [('tfidf', vectorizer), ('svc', decomposition)]
-    
+
     return pipeline
 
 ## Model Selection
@@ -95,11 +95,35 @@ N_NEIGHBORS = 4
 CV = 3
 
 def models_creation():
-    
+
     model1 = KNeighborsClassifier(n_neighbors=N_NEIGHBORS)
     model2 = RandomForestClassifier(random_state=Random_State)
     model3 = LogisticRegression(cv = CV, random_state=Random_State)
-    
+
     models = [("KNN", model1), ("Random Forest", model2), ("Logistic Regression", model3)]
-    
+
     return models
+
+
+## Train Model
+
+def train_model(models, pipeline, X_train, X_test, y_train, y_test):
+
+    results = []
+
+    for name, model in models:
+
+        pipe = Pipeline(pipeline + [(name, model)])
+
+        print(f"Training model {name} with train data...")
+        pipe.fit(X_train, y_test)
+
+        y_pred = pipe.predict(X_test)
+
+        report = classification_report(y_test, y_pred)
+        print("Classifier Report: {y_pred} \n")
+
+        results.append([model, {'Model': name, 'Prediction': y_pred, 'Report': report}])
+
+        return results
+
