@@ -17,9 +17,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+input_string = input("Enter a list element separated by space ")
+input_string
+topics  = input_string.split()
 
-
-topics = ["machinelearning", "datascience", "astrology"]
+ #= ["machinelearning", "datascience", "astrology"]
 
 def get_data():
 
@@ -100,7 +102,7 @@ def models_creation():
 
     model1 = KNeighborsClassifier(n_neighbors=N_NEIGHBORS)
     model2 = RandomForestClassifier(random_state=Random_State)
-    model3 = LogisticRegressionCV(cv = CV, random_state=Random_State)
+    model3 = LogisticRegressionCV(cv = CV, random_state=Random_State, max_iter = 3000)
 
     models = [("KNN", model1), ("Random Forest", model2), ("Logistic Regression", model3)]
 
