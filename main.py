@@ -26,11 +26,11 @@ topics  = input_string.split()
 def get_data():
 
     reddit = praw.Reddit(
-            client_id="giS6njwtQgrlAiALZKnO8w",
-            client_secret="_Ad6ysTKvUZ17Ka49npt8-U0ObkcRA",
-            password="Excalibur_1",
-            user_agent="vitor-app",
-            username="AdThis4495"
+            client_id="******",
+            client_secret="******",
+            password="*******",
+            user_agent="*******",
+            username="********"
     )
 
     char_count = lambda post: len(re.sub('\W|\d', '', post.selftext))
